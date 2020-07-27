@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý sản phẩm</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+    <script>
+        function delPro(productId) {
+            fetch("/api/products/" + productId, {
+                "method": "delete"
+            }).then(res => res.json()).then(res => {
+                if (res.status == 200) {
+                    var d = document.getElementById("product" + res.product_id);
+                    d.style.display = "None";
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -11,17 +24,15 @@
         <form action="{{ url_for('product_list') }}">
             <div>
                 <input type="text" name="keyword" placeholder="Nhập từ khóa cần tìm..." />
-            </div>
-            <div>
                 <input type="number" name="from_price" placeholder="Gía bắt đầu" />
                 <input type="number" name="to_price" placeholder="Gía kết thúc" />
+                <input type="submit" value="Tìm" />
             </div>
-            <input type="submit" value="Tìm" />
         </form>
 
         <table border="1" width="100%">
             {% for product in products %}
-            <tr>
+            <tr  class="{% if request.args['product_id']==product.id|string %}bg-warning{% endif %}" id="product{{product.id}}">
                 <td>
                     <img width="120" src="{{ product.image }}" alt="{{ product.name }}" />
                 </td>
@@ -35,12 +46,15 @@
                     {{ "{:,.1f}".format(product.price) }} VNĐ
                 </td>
                 <td>
-                    <a href="#">Cập nhật</a> |
-                    <a href="#">Xóa</a>
+                    <a href="{{ url_for('add_product', product_id=product.id) }}">Cập nhật</a> |
+                    <a href="javascript:;" onclick="delPro({{product.id}})">Xóa</a>
                 </td>
             </tr>
             {% endfor %}
         </table>
     </div>
+    <h1>
+        <a href="{{ url_for('add_product') }}">Thêm sản phẩm</a>
+    </h1>
 </body>
 </html>
