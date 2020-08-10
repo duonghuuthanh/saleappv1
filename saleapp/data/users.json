@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Nguyễn Văn Nam",
+        "username": "vana",
+        "password": "e10adc3949ba59abbe56e057f20f883e"
+    },
+    {
+        "id": 2,
+        "name": "Lê Hồng Quân",
+        "username": "ngocb",
+        "password": "e10adc3949ba59abbe56e057f20f883e"
+    },
+    {
+        "id": 3,
+        "name": "OU",
+        "username": "ou",
+        "password": "25d55ad283aa400af464c76d713c07ad"
+    }
+]

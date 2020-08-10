@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DANG KY</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-success">DANG KY TAI KHOAN</h1>
+        {% if err_msg %}
+        <div class="alert alert-danger">
+            <h1>{{ err_msg }}</h1>
+        </div>
+        {% endif %}
+        <form method="post">
+            <div class="form-group">
+                <input type="text" placeholder="Name..."
+                       name="name" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Username..."
+                       name="username" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Password..."
+                       name="password" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Xac nhan mat khau..."
+                       name="confirm" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dang ky"
+                       class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>

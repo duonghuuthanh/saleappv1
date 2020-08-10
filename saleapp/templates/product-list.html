@@ -6,6 +6,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
     <script>
+        function delProduct(productId) {
+            fetch("/api/pro/" + productId, {
+                "method": "delete"
+            }).then(res => res.json()).then(res => {
+                if (res.status == 200) {
+                    var d = document.getElementById("product" + res.product_id);
+                    d.style.display = "None";
+                }
+            }).catch(function(err) {
+
+            })
+        }
+
         function delPro(productId) {
             fetch("/api/products/" + productId, {
                 "method": "delete"
@@ -47,7 +60,7 @@
                 </td>
                 <td>
                     <a href="{{ url_for('add_product', product_id=product.id) }}">Cập nhật</a> |
-                    <a href="javascript:;" onclick="delPro({{product.id}})">Xóa</a>
+                    <a href="javascript:;" onclick="delProduct({{ product.id }})">Xóa</a>
                 </td>
             </tr>
             {% endfor %}
@@ -55,6 +68,7 @@
     </div>
     <h1>
         <a href="{{ url_for('add_product') }}">Thêm sản phẩm</a>
+        <a href="{{ url_for('export_product') }}">Xuat danh sach san pham</a>
     </h1>
 </body>
 </html>
