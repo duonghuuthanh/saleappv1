@@ -1,11 +1,12 @@
 from flask import render_template, request, redirect, url_for, jsonify, send_file, session
 from saleapp import app, dao, utils
 from saleapp import decorator
+import json
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", products=dao.read_products())
 
 
 @app.route("/products")
@@ -17,6 +18,11 @@ def product_list():
     return render_template("product-list.html", products=dao.read_products(keyword=keyword,
                                                                            from_price=from_price,
                                                                            to_price=to_price))
+
+
+@app.route("/products/detail/<int:product_id>")
+def product_detail(product_id):
+    return render_template("product-detail.html")
 
 
 @app.route("/products/<int:category_id>")
@@ -128,5 +134,42 @@ def register():
     return render_template("register.html", err_msg=err_msg)
 
 
+@app.route("/cart")
+def cart():
+    return render_template("payment.html")
+
+
+@app.route("/api/cart", methods=["post"])
+def add_to_cart():
+    data = json.loads(request.data)
+    product_id = data.get("product_id")
+    name = data.get("name")
+    price = data.get("price")
+    if "cart" not in session:
+        session["cart"] = {}
+
+    cart = session["cart"]
+
+    product_key = str(product_id)
+    if product_key in cart: # đa từng bỏ sản phẩm product_id vào giỏ
+        cart[product_key]["quantity"] = cart[product_key]["quantity"] + 1
+    else: # bỏ sản phẩm mới vào giỏ
+        cart[product_key] = {
+            "id": product_id,
+            "name": name,
+            "price": price,
+            "quantity": 1
+        }
+
+    session["cart"] = cart
+
+    return jsonify({"success": 1, "quantity": sum([c["quantity"] for c in list(session["cart"].values())])})
+
+
+@app.context_processor
+def append_cate():
+    return {"categories": dao.read_categories()}
+
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5050)
+    app.run(debug=True, port=5000)

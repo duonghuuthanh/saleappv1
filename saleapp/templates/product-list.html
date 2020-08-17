@@ -29,6 +29,21 @@
                 }
             });
         }
+
+        function addToCart(id, name, price) {
+            fetch("/api/cart", {
+                body: JSON.stringify({
+                    "product_id": id,
+                    "name": name,
+                    "price": price
+                }),
+                method: "post",
+                headers: {"Content-Type": "application/json"}
+            }).then(res => res.json()).then(data => {
+                var cart = document.getElementById("cartId");
+                cart.innerText = `(${data.quantity})`;
+            })
+        }
     </script>
 </head>
 <body>
@@ -42,7 +57,9 @@
                 <input type="submit" value="Tìm" />
             </div>
         </form>
-
+        <div>
+            <a href="{{ url_for('cart') }}">Giỏ hàng</a> <span class="badge badge-light" id="cartId">(0)</span>
+        </div>
         <table border="1" width="100%">
             {% for product in products %}
             <tr  class="{% if request.args['product_id']==product.id|string %}bg-warning{% endif %}" id="product{{product.id}}">
@@ -59,6 +76,7 @@
                     {{ "{:,.1f}".format(product.price) }} VNĐ
                 </td>
                 <td>
+                    <a href="javascript:;" onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }})">Thêm vào giỏ</a> |
                     <a href="{{ url_for('add_product', product_id=product.id) }}">Cập nhật</a> |
                     <a href="javascript:;" onclick="delProduct({{ product.id }})">Xóa</a>
                 </td>

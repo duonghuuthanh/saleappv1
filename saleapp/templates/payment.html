@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gio hang</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-success">GIO HANG</h1>
+
+        <table class="table">
+            <tr>
+                <td>Ten san pham</td>
+                <td>Gia</td>
+                <td>So luong</td>
+            </tr>
+            {% for c in session["cart"].values() %}
+            <tr>
+                <td>{{ c.name }}</td>
+                <td>{{ c.price }}</td>
+                <td>{{ c.quantity }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3">
+                    <input type="button" value="Thanh toan" class="btn btn-danger" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

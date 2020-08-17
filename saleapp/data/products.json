@@ -6,5 +6,77 @@
         "price": 37000000,
         "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
         "category_id": 2
+    },
+    {
+        "id": 1,
+        "name": "iPhone 7 Plus",
+        "description": "Apple, 64GB, RAM: 3GB",
+        "price": 18000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
+    },
+    {
+        "id": 3,
+        "name": "Galaxy Note 10",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 2000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
+    },
+    {
+        "id": 3,
+        "name": "Galaxy Note 20",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 2000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
+    },
+    {
+        "id": 4,
+        "name": "Galaxy Tab S7",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 30000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 2
+    },
+    {
+        "id": 5,
+        "name": "Galaxy Note 10",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 2000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
+    },
+    {
+        "id": 6,
+        "name": "Galaxy Note 10",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 2000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
+    },
+    {
+        "id": 7,
+        "name": "Galaxy Note 10",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 2000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
+    },
+    {
+        "id": 8,
+        "name": "Galaxy Note 10",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 2000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
+    },
+    {
+        "id": 9,
+        "name": "Galaxy Note 10",
+        "description": "Samsung, 128GB, RAM: 6GB",
+        "price": 2000000,
+        "image": "https://cdn.tgdd.vn/Products/Images/522/221775/ipad-pro-12-9-inch-wifi-128gb-2020-xam-400x460-1-400x460.png",
+        "category_id": 1
     }
 ]
