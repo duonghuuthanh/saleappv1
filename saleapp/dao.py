@@ -1,4 +1,5 @@
 from saleapp import app
+from saleapp.models import Category, Product
 from functools import wraps
 import json
 import os
@@ -6,16 +7,15 @@ import hashlib
 
 
 def read_products(keyword=None, from_price=None, to_price=None):
-    with open(os.path.join(app.root_path, "data/products.json"), encoding="utf-8") as f:
-        products = json.load(f)
+    products = Product.query
 
-        if keyword:
-            return [product for product in products if product["name"].lower().find(keyword.lower()) >= 0]
+    if keyword:
+        products = products.filter(Product.name.contains(keyword))
 
-        if from_price and to_price:
-            return [product for product in products if product["price"] >= from_price and product["price"] <= to_price]
+    if from_price and to_price:
+        products = products.filter(Product.price.__gt__(from_price), Product.price__lt__(to_price))
 
-    return products
+    return products.all()
 
 
 def read_product_by_id(product_id):
@@ -89,12 +89,11 @@ def update_product_json(products):
 
 
 def read_categories():
-    with open(os.path.join(app.root_path, "data/categories.json"), encoding="utf-8") as f:
-        return json.load(f)
+    return Category.query.all()
 
 
 def read_products_by_cate_id(cate_id):
-    return [product for product in read_products() if product["category_id"] == cate_id]
+    return Category.query.get(cate_id).products
 
 
 def load_users():

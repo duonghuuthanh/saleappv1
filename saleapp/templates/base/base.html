@@ -89,7 +89,7 @@
 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart.html">Cart - <span class="cart-amunt" id="amount">VNĐ 0</span> <i class="fa fa-shopping-cart"></i> <span class="product-count" id="cartId">0</span></a>
                     </div>
                 </div>
             </div>
@@ -435,5 +435,6 @@
     <!-- Slider -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/bxslider.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/script.slider.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
