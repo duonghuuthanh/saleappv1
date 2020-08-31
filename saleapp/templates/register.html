@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DANG KY</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-</head>
-<body>
+{% extends 'base/base.html' %}
+
+{% block body %}
     <div class="container">
         <h1 class="text-center text-success">DANG KY TAI KHOAN</h1>
         {% if err_msg %}
@@ -36,5 +31,4 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

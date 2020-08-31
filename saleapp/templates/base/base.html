@@ -42,11 +42,16 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+
+<!--                            <li><a href="{{ url_for('cart') }}"><i class="fa fa-user"></i> My Cart</a></li>-->
+<!--                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>-->
+                            {% if current_user.is_authenticated %}
+                            <li><a href="#"><i class="fa fa-user"></i> Welcome {{ current_user.name }}</a></li>
+                            <li><a href="{{ url_for('logout') }}"><i class="fa fa-user"></i> Logout</a></li>
+                            {% else %}
+                            <li><a href="{{ url_for('signin_user') }}"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="{{ url_for('register') }}"><i class="fa fa-user"></i> Register</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -89,7 +94,7 @@
 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt" id="amount">VNĐ 0</span> <i class="fa fa-shopping-cart"></i> <span class="product-count" id="cartId">0</span></a>
+                        <a href="{{ url_for('cart') }}">Cart - <span class="cart-amunt" id="amount">VNĐ {{ cart_price }}</span> <i class="fa fa-shopping-cart"></i> <span class="product-count" id="cartId">{{ cart_quantity }}</span></a>
                     </div>
                 </div>
             </div>
@@ -161,6 +166,8 @@
             </div>
         </div>
     </div> <!-- End main content area -->
+
+
 
     <div class="brands-area">
         <div class="zigzag-bottom"></div>
@@ -288,9 +295,10 @@
                     <div class="single-product-widget">
                         <h2 class="product-wid-title">Top New</h2>
                         <a href="#" class="wid-view-more">View All</a>
+                        {% for product in latest_products %}
                         <div class="single-wid-product">
-                            <a href="single-product.html"><img src="{{ url_for('static', filename='img/product-thumb-3.jpg') }}" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                            <a href="single-product.html"><img src="{{ product.image }}" alt="" class="product-thumb"></a>
+                            <h2><a href="single-product.html">{{ product.name }}</a></h2>
                             <div class="product-wid-rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -299,37 +307,11 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
+                                <ins>VND {{ product.price }}</ins> <del>VND {{ product.price }}</del>
                             </div>
                         </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="{{ url_for('static', filename='img/product-thumb-4.jpg') }}" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>
-                        </div>
-                        <div class="single-wid-product">
-                            <a href="single-product.html"><img src="{{ url_for('static', filename='img/product-thumb-1.jpg') }}" alt="" class="product-thumb"></a>
-                            <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
-                            <div class="product-wid-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-wid-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>
-                        </div>
+                        {% endfor %}
+
                     </div>
                 </div>
             </div>

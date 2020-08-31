@@ -1,33 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Gio hang</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-</head>
-<body>
-    <div class="container">
+{% extends 'base/base.html' %}
+
+{% block body %}
+<div class="container">
         <h1 class="text-center text-success">GIO HANG</h1>
 
+        {% if err_msg %}
+        <div class="alert alert-danger">
+            {{ err_msg }}
+        </div>
+        {% endif %}
+
         <table class="table">
+
             <tr>
                 <td>Ten san pham</td>
                 <td>Gia</td>
                 <td>So luong</td>
             </tr>
-            {% for c in session["cart"].values() %}
-            <tr>
-                <td>{{ c.name }}</td>
-                <td>{{ c.price }}</td>
-                <td>{{ c.quantity }}</td>
-            </tr>
-            {% endfor %}
+            {% if session['cart'] %}
+                {% for c in session["cart"].values() %}
+                <tr>
+                    <td>{{ c.name }}</td>
+                    <td>{{ c.price }}</td>
+                    <td>{{ c.quantity }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">No products</td>
+                </tr>
+            {% endif %}
             <tr>
                 <td colspan="3">
-                    <input type="button" value="Thanh toan" class="btn btn-danger" />
+                    <form action="{{url_for('cart')}}" method="post">
+                        <input type="submit" value="Thanh toan" class="btn btn-danger" />
+                    </form>
                 </td>
             </tr>
         </table>
     </div>
-</body>
-</html>
+{% endblock %}

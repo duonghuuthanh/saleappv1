@@ -1,12 +1,12 @@
-from saleapp import app
-from saleapp.models import Category, Product
+from saleapp import app, db
+from saleapp.models import Category, Product, Receipt, ReceiptDetail, User
 from functools import wraps
 import json
 import os
 import hashlib
 
 
-def read_products(keyword=None, from_price=None, to_price=None):
+def read_products(keyword=None, from_price=None, to_price=None, is_latest=False):
     products = Product.query
 
     if keyword:
@@ -14,6 +14,10 @@ def read_products(keyword=None, from_price=None, to_price=None):
 
     if from_price and to_price:
         products = products.filter(Product.price.__gt__(from_price), Product.price__lt__(to_price))
+
+    if is_latest:
+        products = products.order_by(-Product.id)
+        return products.all()[:3]
 
     return products.all()
 
@@ -102,30 +106,40 @@ def load_users():
 
 
 def add_user(name, username, password):
-    users = load_users()
-    user = {
-        "id": len(users) + 1,
-        "name": name.strip(),
-        "username": username.strip(),
-        "password": str(hashlib.md5(password.strip().encode("utf-8")).hexdigest())
-    }
-    users.append(user)
-
-    with open(os.path.join(app.root_path, "data/users.json"), "w", encoding="utf-8") as f:
-        json.dump(users, f, ensure_ascii=False, indent=4)
+    user = User(name=name,
+                username=username,
+                password=str(hashlib.md5(password.strip().encode("utf-8")).hexdigest()))
+    db.session.add(user)
+    db.session.commit()
 
     return user
 
-
 def check_login(username, password):
-    users = load_users()
-
     password = str(hashlib.md5(password.strip().encode("utf-8")).hexdigest())
-    for u in users:
-        if u["username"].strip() == username.strip() and u["password"] == password:
-            return u
+    return User.query.filter(User.username == username,
+                             User.password == password).first()
 
-    return None
+
+def add_receipt(cart_products=[]):
+    try:
+        r = Receipt()
+        db.session.add(r)
+        db.session.commit()
+
+        for p in cart_products:
+            d = ReceiptDetail(product_id=p["id"], receipt_id=r.id, unit_price=p["price"], quantity=p["quantity"])
+            db.session.add(d)
+
+        db.session.commit()
+        return True
+    except Exception as ex:
+        print(ex)
+        return False
+
+
+def get_user_by_id(user_id):
+    return User.query.get(user_id)
+
 
 
 if __name__ == "__main__":
