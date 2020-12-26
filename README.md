@@ -5,3 +5,4 @@
 * Activating the virtual environment: source venv/bin/activate
 * Executing: pip installl -r requirements.txt
 * Run main.py
+* Accessing: http://localhost:port/
